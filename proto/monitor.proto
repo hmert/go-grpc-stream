@@ -1,0 +1,19 @@
+syntax = "proto3";
+package main;
+option go_package=".";
+
+
+// HardwareStats is a struct containing information about the systems Memory usage and CPU
+message HardwareStats {
+    int32 cpu = 1;
+    int32 memory_free = 2;
+    int32 memory_used = 3;
+}
+// EmptyRequest is a way to call gRPC functions without any input data
+message MonitorRequest {}
+
+// HardwareMonitor is our service, the service is the API, and rpc statements below will be methods that are available by the API
+service HardwareMonitor{
+    // Monitor will output stats about the hardware on the system host
+    rpc Monitor(MonitorRequest) returns (stream HardwareStats) {};
+}

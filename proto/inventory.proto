@@ -1,0 +1,31 @@
+syntax = "proto3";
+package main;
+option go_package=".";
+
+message HardwareItem {
+    string name = 1;
+    string description = 2;
+    int32 year = 3;
+}
+
+message SoftwareItem {
+    string name = 1;
+    string description = 2;
+    int32 year = 3;
+}
+
+
+message Inventory{
+    int32 count = 1;
+    string action = 2;
+    oneof item{
+        HardwareItem hardware_item = 3;
+        SoftwareItem software_item = 4;
+    }
+}
+
+message InventoryRequest {}
+
+service InventoryMonitor{
+    rpc Status(InventoryRequest) returns (stream Inventory) {};
+}
